@@ -1,0 +1,149 @@
+
+---------------UC1-------------------
+//create database
+
+mysql> create database payroll_services;
+9 rows in set (0.03 sec)
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| demo               |
+| information_schema |
+| my_db              |
+| mysql              |
+| mysqldb            |
+| payroll_service    |
+| payroll_services   |
+| performance_schema |
+| sys                |
++--------------------+
+9 rows in set (0.03 sec)
+-----------------UC2--------------
+
+//create a employee payroll table
+in the payroll service database
+
+mysql> create table Employee_payroll(Emp_id BIGINT(4) NOT NULL auto_increment, name VARCHAR(20) NOT NULL, salary BIGINT(10) NOT NULL,
+start_date date not null,
+PRIMARY KEY (Emp_id)
+);
+mysql> show tables;
++----------------------------+
+| Tables_in_payroll_services |
++----------------------------+
+| employee_payroll           |
++----------------------------+
+1 row in set (0.04 sec)
+mysql> desc Employee_payroll;
++------------+-------------+------+-----+---------+----------------+
+| Field      | Type        | Null | Key | Default | Extra          |
++------------+-------------+------+-----+---------+----------------+
+| Emp_id     | bigint      | NO   | PRI | NULL    | auto_increment |
+| name       | varchar(20) | NO   |     | NULL    |                |
+| salary     | bigint      | NO   |     | NULL    |                |
+| start_date | date        | NO   |     | NULL    |                |
++------------+-------------+------+-----+---------+----------------+
+4 rows in set (0.00 sec)
+
+----------------------UC3-------------------
+//insert records
+
+
+mysql> insert into Employee_payroll(name, salary, start_date)values( "vishal",  120000, '22-05-21');
+Query OK, 1 row affected (0.07 sec)
+
+mysql> select * from Employee_payroll;
++--------+--------+--------+------------+
+| Emp_id | name   | salary | start_date |
++--------+--------+--------+------------+
+|      1 | Shital |  10000 | 2022-05-22 |
+|      3 | vishal | 120000 | 2022-05-21 |
++--------+--------+--------+------------+
+2 rows in set (0.00 sec)
+
+--------------UC5---------------
+//retrieve salary data for a particular
+employee as well as all employees who have
+joined in a particular data range from the
+payroll service
+
+mysql> select salary from Employee_payroll where name ="shital";
++--------+
+| salary |
++--------+
+|  10000 |
++--------+
+1 row in set (0.00 sec)
++--------+--------+--------+------------+
+| Emp_id | name   | salary | start_date |
++--------+--------+--------+------------+
+|      1 | Shital |  10000 | 2022-05-22 |
+|      3 | vishal | 120000 | 2022-05-21 |
++--------+--------+--------+------------+
+2 rows in set (0.00 sec)
+
+--------------------UC6_-----------------
+
+//alter table 
+mysql> alter table Employee_payroll add gender varchar(1) after name;
+' rows in set (0.00 sec)
+mysql> select * from Employee_payroll;
++--------+--------+--------+--------+------------+
+| Emp_id | name   | gender | salary | start_date |
++--------+--------+--------+--------+------------+
+|      1 | Shital | NULL   |  10000 | 2022-05-22 |
+|      3 | vishal | M      | 120000 | 2022-05-21 |
++--------+--------+--------+--------+------------+
+2 rows in set (0.00 sec)
+
+-----------------------UC7--------------------
+
+// calculate sum,avg,min,max salary gourping by gender
+
+
+mysql>  SELECT SUM(salary) FROM employee_payroll WHERE gender = 'M' GROUP BY gender;
++-------------+
+| SUM(salary) |
++-------------+
+|      152000 |
++-------------+
+1 row in set (0.00 sec)
+
+mysql>  SELECT Avg(salary) FROM employee_payroll WHERE gender = 'M' GROUP BY gender;
++-------------+
+| Avg(salary) |
++-------------+
+|  50666.6667 |
++-------------+
+1 row in set (0.00 sec)
+
+mysql>  SELECT MIN(salary) FROM employee_payroll WHERE gender = 'M' GROUP BY gender;
++-------------+
+| MIN(salary) |
++-------------+
+|       11000 |
++-------------+
+1 row in set (0.03 sec)
+
+mysql>  SELECT MAX(salary) FROM employee_payroll WHERE gender = 'M' GROUP BY gender;
++-------------+
+| MAX(salary) |
++-------------+
+|      120000 |
++-------------+
+1 row in set (0.00 sec)
+
+mysql>  SELECT Count(salary) FROM employee_payroll WHERE gender = 'M' GROUP BY gender;
++---------------+
+| Count(salary) |
++---------------+
+|             3 |
++---------------+
+1 row in set (0.00 sec)
+
+
+
+
+
+
