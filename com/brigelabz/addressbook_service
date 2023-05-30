@@ -1,0 +1,75 @@
+------------------UC1-----------------
+create database AddressBook_srvice;
+mysql> show databasses;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'databasses' at line 1
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| addressbook_srvice |
+| demo               |
+| information_schema |
+| my_db              |
+| mysql              |
+| mysqldb            |
+| payroll_services   |
+| performance_schema |
+| sys                |
++--------------------+
+9 rows in set (0.06 sec)
+
+-------------UC2-------------
+//created table
+
+mysql> create table Address_Book(
+ID BIGINT NOT NULL auto_increment,
+Fname VARCHAR(20) NOT NULL,
+Lname VARCHAR(20) NOT NULL,
+address VARCHAR(20) NOT NULL,
+city VARCHAR(20) NOT NULL,
+state VARCHAR(20) NOT NULL,
+zip int(10) NOT NULL,
+phoneNum VARCHAR(20) NOT NULL,
+email VARCHAR(20) NOT NULL,
+PRIMARY KEY (ID)
+);
+9 rows in set (0.06 sec)
+
+mysql> desc Address_Book;
++----------+-------------+------+-----+---------+----------------+
+| Field    | Type        | Null | Key | Default | Extra          |
++----------+-------------+------+-----+---------+----------------+
+| ID       | bigint      | NO   | PRI | NULL    | auto_increment |
+| Fname    | varchar(20) | NO   |     | NULL    |                |
+| Lname    | varchar(20) | NO   |     | NULL    |                |
+| address  | varchar(20) | NO   |     | NULL    |                |
+| city     | varchar(20) | NO   |     | NULL    |                |
+| state    | varchar(20) | NO   |     | NULL    |                |
+| zip      | int         | NO   |     | NULL    |                |
+| phoneNum | varchar(20) | NO   |     | NULL    |                |
+| email    | varchar(20) | NO   |     | NULL    |                |
++----------+-------------+------+-----+---------+----------------+
+9 rows in set (0.07 sec)
+
+-------------UC3------------------
+//insert table 
+
+mysql> insert into Address_Book(Fname,Lname,address,city,state,zip,phoneNum,email)values(
+"shital","karad","pavar nagr","pune","maharastra",431122,"9022347801","shital@gmail.com"
+);
+1 row in set (0.00 sec)
+
+
+mysql> select * from Address_Book;
++----+--------+-------+------------+------+------------+--------+------------+------------------+
+| ID | Fname  | Lname | address    | city | state      | zip    | phoneNum   | email            |
++----+--------+-------+------------+------+------------+--------+------------+------------------+
+|  1 | shital | karad | pavar nagr | pune | maharastra | 431122 | 9022347801 | shital@gmail.com |
++----+--------+-------+------------+------+------------+--------+------------+------------------+
+1 row in set (0.00 sec)
+
+---------------UC4--------------
+
+
+
+
