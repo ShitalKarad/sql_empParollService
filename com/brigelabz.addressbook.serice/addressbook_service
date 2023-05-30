@@ -1,0 +1,212 @@
+------------------UC1-----------------
+create database AddressBook_srvice;
+mysql> show databasses;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'databasses' at line 1
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| addressbook_srvice |
+| demo               |
+| information_schema |
+| my_db              |
+| mysql              |
+| mysqldb            |
+| payroll_services   |
+| performance_schema |
+| sys                |
++--------------------+
+9 rows in set (0.06 sec)
+
+-------------UC2-------------
+//created table
+
+mysql> create table Address_Book(
+ID BIGINT NOT NULL auto_increment,
+Fname VARCHAR(20) NOT NULL,
+Lname VARCHAR(20) NOT NULL,
+address VARCHAR(20) NOT NULL,
+city VARCHAR(20) NOT NULL,
+state VARCHAR(20) NOT NULL,
+zip int(10) NOT NULL,
+phoneNum VARCHAR(20) NOT NULL,
+email VARCHAR(20) NOT NULL,
+PRIMARY KEY (ID)
+);
+9 rows in set (0.06 sec)
+
+mysql> desc Address_Book;
++----------+-------------+------+-----+---------+----------------+
+| Field    | Type        | Null | Key | Default | Extra          |
++----------+-------------+------+-----+---------+----------------+
+| ID       | bigint      | NO   | PRI | NULL    | auto_increment |
+| Fname    | varchar(20) | NO   |     | NULL    |                |
+| Lname    | varchar(20) | NO   |     | NULL    |                |
+| address  | varchar(20) | NO   |     | NULL    |                |
+| city     | varchar(20) | NO   |     | NULL    |                |
+| state    | varchar(20) | NO   |     | NULL    |                |
+| zip      | int         | NO   |     | NULL    |                |
+| phoneNum | varchar(20) | NO   |     | NULL    |                |
+| email    | varchar(20) | NO   |     | NULL    |                |
++----------+-------------+------+-----+---------+----------------+
+9 rows in set (0.07 sec)
+
+-------------UC3------------------
+//insert table 
+
+mysql> insert into Address_Book(Fname,Lname,address,city,state,zip,phoneNum,email)values(
+"shital","karad","pavar nagr","pune","maharastra",431122,"9022347801","shital@gmail.com"
+);
+1 row in set (0.00 sec)
+
+
+mysql> select * from Address_Book;
++----+--------+-------+------------+------+------------+--------+------------+------------------+
+| ID | Fname  | Lname | address    | city | state      | zip    | phoneNum   | email            |
++----+--------+-------+------------+------+------------+--------+------------+------------------+
+|  1 | shital | karad | pavar nagr | pune | maharastra | 431122 | 9022347801 | shital@gmail.com |
++----+--------+-------+------------+------+------------+--------+------------+------------------+
+1 row in set (0.00 sec)
+
+---------------UC4--------------
+// edit contat
+
+update Address_Book set Lname ="Darade"  where ID = 1;
+
+mysql> select * from Address_Book;
++----+--------+--------+------------+------+------------+--------+------------+------------------+
+| ID | Fname  | Lname  | address    | city | state      | zip    | phoneNum   | email            |
++----+--------+--------+------------+------+------------+--------+------------+------------------+
+|  1 | shital | Darade | pavar nagr | pune | maharastra | 431122 | 9022347801 | shital@gmail.com |
++----+--------+--------+------------+------+------------+--------+------------+------------------+
+1 row in set (0.00 sec)
+
+
+mysql> select * from Address_Book;
++----+--------+--------+------------+--------+-------+--------+------------+------------------+
+| ID | Fname  | Lname  | address    | city   | state | zip    | phoneNum   | email            |
++----+--------+--------+------------+--------+-------+--------+------------+------------------+
+|  1 | shital | Darade | pavar nagr | parali | MP    | 431122 | 9022347801 | shital@gmail.com |
++----+--------+--------+------------+--------+-------+--------+------------+------------------+
+1 row in set (0.02 sec)
+
+--------------------UC5-------------------
+//delete contact using name
+
+delete from Address_Book where Fname ='shital';
+mysql> desc Address_Book;
++----------+-------------+------+-----+---------+----------------+
+| Field    | Type        | Null | Key | Default | Extra          |
++----------+-------------+------+-----+---------+----------------+
+| ID       | bigint      | NO   | PRI | NULL    | auto_increment |
+| Fname    | varchar(20) | NO   |     | NULL    |                |
+| Lname    | varchar(20) | NO   |     | NULL    |                |
+| address  | varchar(20) | NO   |     | NULL    |                |
+| city     | varchar(20) | NO   |     | NULL    |                |
+| state    | varchar(20) | NO   |     | NULL    |                |
+| zip      | int         | NO   |     | NULL    |                |
+| phoneNum | varchar(20) | NO   |     | NULL    |                |
+| email    | varchar(20) | NO   |     | NULL    |                |
++----------+-------------+------+-----+---------+----------------+
+9 rows in set (0.12 sec)
+--------------------UC6-------------------
+
+//select person city or state
+
+mysql> select city, state from Address_Book;
++------+------------+
+| city | state      |
++------+------------+
+| pune | maharastra |
++------+------------+
+1 row in set (0.00 sec)
+
+-------------------UC7---------------------
+
+mysql> select count(city) from Address_Book;
++-------------+
+| count(city) |
++-------------+
+|           2 |
++-------------+
+1 row in set (0.01 sec)
+
+
+mysql> select count(state) from Address_Book;
++--------------+
+| count(state) |
++--------------+
+|            2 |
++--------------+
+1 row in set (0.00 sec)
+
+
+------------------------UC8--------------------------
+
+//sort city by person name
+
+mysql> SELECT * FROM Address_Book ORDER BY city, Fname;
++----+--------+-------+------------+--------+------------+--------+------------+------------------+
+| ID | Fname  | Lname | address    | city   | state      | zip    | phoneNum   | email            |
++----+--------+-------+------------+--------+------------+--------+------------+------------------+
+|  3 | vishal | karad | pavar nagr | parali | maharastra | 431122 | 9022347801 | vishal@gmail.com |
+|  2 | shital | karad | pavar nagr | pune   | maharastra | 431122 | 9022347801 | shital@gmail.com |
++----+--------+-------+------------+--------+------------+--------+------------+------------------+
+2 rows in set (0.00 sec)
+
+mysql>
+
+
+--------------Uc9--------------
+
+alter table Employee_payroll add department varchar(225) after Address;
+
+ysql> select * from Address_Book;
++----+---------+-------+----------------+------------+------------+--------+------------+-------------------+------------------+
+| ID | Fname   | Lname | address        | city       | state      | zip    | phoneNum   | email             | addressbook_type |
++----+---------+-------+----------------+------------+------------+--------+------------+-------------------+------------------+
+|  2 | shital  | karad | pavar nagr     | pune       | maharastra | 431122 | 9022347801 | shital@gmail.com  | Famaily          |
+|  3 | vishal  | karad | pavar nagr     | parali     | maharastra | 431122 | 9022347801 | vishal@gmail.com  | Famaily          |
+|  4 | shubham | karad | pavar nagr     | shirur     | maharastra | 431122 | 7787657    | shubham@gmail.com | friend           |
+|  5 | vaibhav | karad | sambhaji nagar | marathvada | maharastra | 431122 | 7787657    | shubham@gmail.com | Prosession       |
++----+---------+-------+----------------+------------+------------+--------+------------+-------------------+------------------+
+4 rows in set (0.00 sec)
+
+--------------------UC10-----------------
+
+//count no of contact by type
+
+
+mysql> select count(addressbook_type) from Address_Book;
++-------------------------+
+| count(addressbook_type) |
++-------------------------+
+|                       4 |
++-------------------------+
+1 row in set (0.00 sec)
+
+------------------------Uc11---------------------
+
+//add persons to both faimily and friends
+
+ mysql> insert into Address_Book(Fname,Lname,address,city,state,zip,phoneNum,email,addressbook_type)values(
+"vaibhav","karad","sambhaji nagar","marathvada","maharastra",431122,"7787657","shubham@gmail.com","Prosession"
+);
+
+
+ysql> select * from Address_Book;
++----+---------+-------+----------------+------------+------------+--------+------------+-------------------+------------------+
+| ID | Fname   | Lname | address        | city       | state      | zip    | phoneNum   | email             | addressbook_type |
++----+---------+-------+----------------+------------+------------+--------+------------+-------------------+------------------+
+|  2 | shital  | karad | pavar nagr     | pune       | maharastra | 431122 | 9022347801 | shital@gmail.com  | Famaily          |
+|  3 | vishal  | karad | pavar nagr     | parali     | maharastra | 431122 | 9022347801 | vishal@gmail.com  | Famaily          |
+|  4 | shubham | karad | pavar nagr     | shirur     | maharastra | 431122 | 7787657    | shubham@gmail.com | friend           |
+|  5 | vaibhav | karad | sambhaji nagar | marathvada | maharastra | 431122 | 7787657    | shubham@gmail.com | Prosession       |
++----+---------+-------+----------------+------------+------------+--------+------------+-------------------+------------------+
+4 rows in set (0.00 sec)
+
+
+
+
+
+
